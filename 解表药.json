@@ -1,0 +1,9 @@
+{
+  "nameDefine":"凡以发散表邪、解除表证为主要功效，常用于治疗表证的药物",
+  "classify":["发散风寒药","发散风热药"],
+  "functionEffect":{"currency":["解表"],"compatible":["止痒","通鼻窍","平喘","止咳","止痛","祛风湿","清热","透疹","清头目","利咽喉"]},
+  "property":{"fourProperties":["温","微寒"],"fiveTastes":["辛","苦"],"channelTropism":["肺","膀胱"],"trend":["升浮","沉降"],"toxicity":["细辛","苍耳子"]},
+  "compatibility":"",
+  "remind":""
+}
+

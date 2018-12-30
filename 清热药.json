@@ -1,0 +1,9 @@
+{
+  "nameDefine":"以清热为主要功效，常用于治疗里热证的药物",
+  "classify":["清热泻火药","清热燥温药","清热解毒药","清热凉血药","清虚热药"],
+  "functionEffect":{"currency":["清热泻火","清热燥湿","清热解毒","清热凉血"],"compatible":["生津止渴","利尿","止血","养阴","活血"]},
+  "property":{"fourProperties":["寒凉"],"fiveTastes":["苦"],"channelTropism":[""],"trend":["沉降"],"toxicity":["绵马贯众","重楼","鸦胆子"]},
+  "compatibility":"",
+  "remind":""
+}
+
