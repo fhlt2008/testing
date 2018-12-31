@@ -8,84 +8,95 @@
     <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
-    <script src="name.js"></script>
-    <title>Document</title>
+    <script src="大类.js"></script>
+    <script src="分类.js"></script>
+    <script src="中药.js"></script>
+    <title>中药功效与主治</title>
 </head>
 <body>
 <script id = "js1"></script>
 <div class="container" id="app">
+    <div class="row">
+        <div class="col-md-3" >
+        <!--<ul class="list-group" >
+            <li class="list-group-item" v-for ="(value , item,index) in bClass"  @click="change(index)">
 
-    <ul class="list-group" >
-        <li class="list-group-item" v-for ="(item,index) in name" @click="change(index)" >
+                {{item}}
+                <div v-if="current==index">
+                <ul class="list-group" >
+                    <li class="list-group-item" v-for ="(value1 ,index1) in value" @click="change1(index1)" >
 
-            {{item}}
-            <div v-if="index==current">
-            <ul class="list-group" >
-                <li class="list-group-item" v-for ="(item1,index1) in data.classify"  >
+                        {{value1}}
+                        <ul class="list-group" v-if="current1 == index1">
+                            <li class="list-group-item" v-for ="(value2 , item2) in classify[value1]" @click="display(value2)">
 
-                    {{item1}}
+                                {{value2}}
 
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+                </div>
+
+            </li>
+        </ul>-->
+            <div>
+            <ul class="nav nav-pills nav-stacked">
+                <li v-for ="(value,item,index) in bClass"  @click="change(index)"><a>{{item}}</a>
+                <ul class="nav nav-pills nav-stacked" style="padding-left:15px;" v-if="current==index">
+                    <li style="border-left: #929292 1px solid" v-for ="(value1 ,index1) in value" @click="change1(index1)"><a>{{value1}}</a>
+                        <ul class="nav nav-pills nav-stacked" style="padding-left:15px;" v-if="current1==index1">
+                            <li style="border-left: #929292 1px solid" v-for ="value2 in classify[value1]" @click="display(value2)"><a>{{value2}}</a>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
                 </li>
             </ul>
             </div>
+        </div>
+        <div class="col-md-9" style="float:left;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{name}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div v-for="(value,item) in medicine[name]">
+                        <p class="label-info">{{typeList[item]}}:</p>
+                        <p>{{value}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        </li>
-    </ul>
+    </div>
 </div>
 
 <script>
-    let data = "",
-    app = new Vue({
-        el:"#app",
-        data:{
-            message:"hello world!",
-            name:text,
-            current:90,
-            data:"",
-
-
+let app =new Vue({
+    el:"#app",
+    data:{
+        bClass:bigClass,
+        bClassify:classify,
+        current:99,
+        current1:99,
+        name:"",
+        typeList:{"alias":"别名","efficiency":"功效","actOn":"应用","property":"性味","channelTropism":"归经","dosage":"用量","remind":"使用注意"}
+    },
+    methods:{
+        change:function(index){
+            this.current=index;
         },
-        methods:{
-            change :function(index){
-                data = "";
-                download(text[index] + ".json");
-                this.current = index;
-                this.data = data;
-            }
-
+        change1:function(index){
+            this.current1=index;
         },
-        watch:{
-            // current:function(newValue,oldValue){
-            //     console.log(newValue);
-            //     this.data = data;
-            // }
-
-        },
-        computed:{
-            classCur:function(){
-                for (let i = 0 ;i<20;i++){
-
-                }
-            }
-
-
+        display:function(value){
+            this.name =value;
         }
-
-    });
-    function download(name){
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET',name,false);
-        xhr.onreadystatechange = function(){
-            if(this.readyState == 4){
-                data = JSON.parse(this.responseText);
-            }
-        }
-        xhr.send(null);
     }
-
-
-
-
+})
 </script>
 </body>
 </html>
