@@ -51,14 +51,16 @@
 
         </ul>-->
             <ul class="nav nav-pills nav-stacked">
-                <li v-for ="(value,item,index) in bClass" :class="{active:index==current}" @click="change(index)"><a>{{item}}</a>
+                <li v-for ="(value,item,index) in bClass" :class="{active:index==current}" @click="change(index)" ><a>{{item}}</a>
                 <ul class="nav nav-pills nav-stacked" style="padding-left:15px;" v-if="current==index"   >
-                    <li :class="{'bg-info':index1==current1}" style="border-bottom: #eee 1px solid;position:relative;" v-for ="(value1 ,index1) in value" @click="change1(index1)"><a>{{value1}}</a>
-                        <ul class="nav nav-pills nav-stacked" style="position:absolute;left:85px;top:0px;z-index: 1000" v-if="current1==index1" >
+                    <li :class="{'bg-info':index1==current1}" style="border-bottom: #eee 1px solid;position:relative;" v-for ="(value1 ,index1) in value" @mouseover="change1(index1)"><a>{{value1}}</a>
+
+                        <ul class="nav nav-pills nav-stacked" style="position:absolute;left:85px;top:0px;z-index: 1000;height: 100%"  v-if="current1==index1" >
                             <li style="border-left: #cbcbcb 1px dashed;border-bottom: #cbcbcb 1px solid"  v-for ="value2 in classify[value1]" @click="display(value2,value1,item)"><a>{{value2}}</a>
 
                             </li>
                         </ul>
+
                     </li>
                 </ul>
                 </li>
@@ -98,18 +100,18 @@ let app =new Vue({
     methods:{
         change:function(index){
             this.current=index;
+            this.current1 = -1;
         },
         change1:function(index){
             this.current1=index;
+
         },
         display:function(value,value1,value2){
             this.name1 =value2+"———"+value1+"———"+value;
             this.name = value;
 
-        },
-        oversub:function(){
-            this.current1=99;
         }
+
     }
 })
 </script>
