@@ -12,11 +12,19 @@
     <script src="分类.js"></script>
     <script src="中药.js"></script>
     <title>中药功效与主治</title>
+    <style>
+        p{
+            height:28px;
+            font-size:16px;
+            padding:0 20px;
+        }
+    </style>
 </head>
 <body>
 <script id = "js1"></script>
-<div class="container" id="app">
-    <div class="row">
+<div class="container-fluid" id="app">
+
+    <div class="row" style="margin-top:10px">
         <div class="col-xs-3" >
         <!--<ul class="list-group" >
             <li class="list-group-item" v-for ="(value , item,index) in bClass"  @click="change(index)">
@@ -42,11 +50,11 @@
             </li>
         </ul>-->
             <ul class="nav nav-pills nav-stacked">
-                <li v-for ="(value,item,index) in bClass"  @click="change(index)"><a>{{item}}</a>
+                <li v-for ="(value,item,index) in bClass" :class="{active:index==current}" @click="change(index)"><a>{{item}}</a>
                 <ul class="nav nav-pills nav-stacked" style="padding-left:15px;" v-if="current==index">
-                    <li style="border-left: #929292 1px solid" v-for ="(value1 ,index1) in value" @click="change1(index1)"><a>{{value1}}</a>
-                        <ul class="nav nav-pills nav-stacked" style="padding-left:15px;" v-if="current1==index1">
-                            <li style="border-left: #929292 1px solid" v-for ="value2 in classify[value1]" @click="display(value2)"><a>{{value2}}</a>
+                    <li :class="{'bg-info':index1==current1}" style="border-bottom: #eee 1px solid;position:relative;" v-for ="(value1 ,index1) in value" @click="change1(index1)"><a>{{value1}}</a>
+                        <ul class="nav nav-pills nav-stacked" style="position:absolute;left:85px;top:0px;z-index: 1000" v-if="current1==index1">
+                            <li style="border-left: #cbcbcb 1px dashed;border-bottom: #cbcbcb 1px solid"  v-for ="value2 in classify[value1]" @click="display(value2,value1,item)"><a>{{value2}}</a>
 
                             </li>
                         </ul>
@@ -55,11 +63,11 @@
                 </li>
             </ul>
         </div>
-        <div class="col-xs-9" >
-            <div style="position:fixed;width:60%;height:400px;left:40%;margin:10px -10%">
-                <div class="panel panel-default" >
+        <div class="col-xs-9" v-if="name1">
+            <div style="position:fixed;width:75%;height:400px;left:25%;margin:10px -10px">
+                <div class="panel panel-default" style="background-image:url(images/banner.jpg);">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{name}}</h3>
+                        <h3 class="panel-title">{{name1}}</h3>
                     </div>
                     <div class="panel-body">
                         <div v-for="(value,item) in medicine[name]">
@@ -83,6 +91,7 @@ let app =new Vue({
         current:99,
         current1:99,
         name:"",
+        name1:"",
         typeList:{"alias":"别名","efficiency":"功效","actOn":"应用","property":"性味","channelTropism":"归经","dosage":"用量","remind":"使用注意"}
     },
     methods:{
@@ -92,8 +101,10 @@ let app =new Vue({
         change1:function(index){
             this.current1=index;
         },
-        display:function(value){
-            this.name =value;
+        display:function(value,value1,value2){
+            this.name1 =value2+"———"+value1+"———"+value;
+            this.name = value;
+
         }
     }
 })
