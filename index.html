@@ -100,17 +100,18 @@ let app =new Vue({
     methods:{
         change:function(index){
             this.current=index;
-            this.current1 = -1;
+
+            console.log("err:"+this.current1)
         },
         change1:function(index){
             this.current1=index;
-
+            console.log(this.current1);
         },
         display:function(value,value1,value2){
             this.name1 =value2+"———"+value1+"———"+value;
             this.name = value;
-
-        }
+            this.current1 = -1;
+        },
 
     }
 })
