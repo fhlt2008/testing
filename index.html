@@ -41,7 +41,6 @@
 
             </li>
         </ul>-->
-            <div>
             <ul class="nav nav-pills nav-stacked">
                 <li v-for ="(value,item,index) in bClass"  @click="change(index)"><a>{{item}}</a>
                 <ul class="nav nav-pills nav-stacked" style="padding-left:15px;" v-if="current==index">
@@ -55,17 +54,18 @@
                 </ul>
                 </li>
             </ul>
-            </div>
         </div>
-        <div class="col-md-9" style="float:left;">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{name}}</h3>
-                </div>
-                <div class="panel-body">
-                    <div v-for="(value,item) in medicine[name]">
-                        <p class="label-info">{{typeList[item]}}:</p>
-                        <p>{{value}}</p>
+        <div class="col-md-9" >
+            <div style="position:fixed;width:60%;height:400px;left:40%;margin:10px -10%">
+                <div class="panel panel-default" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{name}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div v-for="(value,item) in medicine[name]">
+                            <p class="label-info">{{typeList[item]}}:</p>
+                            <p>{{value}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
