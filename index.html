@@ -18,14 +18,13 @@
             font-size:16px;
             padding:0 20px;
         }
+
     </style>
 </head>
 <body>
-<script id = "js1"></script>
-<div class="container-fluid" id="app">
+<div id="app" class="container">
 
-    <div class="row" style="margin-top:10px">
-        <div class="col-xs-3" >
+
         <!--<ul class="list-group" >
             <li class="list-group-item" v-for ="(value , item,index) in bClass"  @click="change(index)">
 
@@ -50,12 +49,13 @@
             </li>
 
         </ul>-->
-            <ul class="nav nav-pills nav-stacked">
+    <div style="display:inline-block;margin:10px;width:320px;height:680px;">
+            <ul class="nav nav-pills nav-stacked" style="width:180px">
                 <li v-for ="(value,item,index) in bClass" :class="{active:index==current}" @click="change(index)" ><a>{{item}}</a>
                 <ul class="nav nav-pills nav-stacked" style="padding-left:15px;" v-if="current==index"   >
-                    <li :class="{'bg-info':index1==current1}" style="border-bottom: #eee 1px solid;position:relative;" v-for ="(value1 ,index1) in value" @mouseover="change1(index1)"><a>{{value1}}</a>
+                    <li :class="{'bg-info':index1==current1}" style="border-bottom: #eee 1px solid;" v-for ="(value1 ,index1) in value" @mouseover="change1(index1,value1)"><a>{{value1}}</a>
 
-                        <ul class="nav nav-pills nav-stacked" style="position:absolute;left:85px;top:0px;z-index: 1000;height: 100%"  v-if="current1==index1" >
+                        <ul class="nav nav-pills nav-stacked" style="position:absolute;width:120px;margin-left:165px;z-index: 100" :style="[classify[value1].length<(index+index1+2)?{'margin-top':0-classify[value1].length*40+'px'}:{'margin-top':0-(index+index1+2)*40+'px'}]" v-if="current1==index1" >
                             <li style="border-left: #cbcbcb 1px dashed;border-bottom: #cbcbcb 1px solid"  v-for ="value2 in classify[value1]" @click="display(value2,value1,item)"><a>{{value2}}</a>
 
                             </li>
@@ -65,24 +65,31 @@
                 </ul>
                 </li>
             </ul>
-        </div>
-        <div class="col-xs-9">
-            <div style="position:fixed;width:75%;height:400px;left:25%;margin:10px -10px">
-                <div class="panel panel-default" >
-                    <div class="panel-heading" style="min-height:40px">
+    </div>
+    <div style="display:inline-block;position:absolute;margin:10px 0 0 0 ;min-width:600px;">
+                <div class="panel panel-default" style="width:100%;" >
+                    <div class="panel-heading" style="display: inline-block;width:100%;min-height:40px">
                         <h3 class="panel-title">{{name1}}</h3>
                     </div>
-                    <div class="panel-body" style="min-height: 680px;background-image:url(images/banner.jpg);">
+                    <div style="position:absolute;width:220px;height:36px;margin:2px 0 2px -235px;display: inline-block">
+                        <div class="form-inline" style="margin-right:-40px;">
+                            <div class="form-group" >
+                                <input type="text" class="form-control"  v-model="message">
+                            </div>
+                            <button  class="btn btn-info" @click="search">搜索</button>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="min-height: 680px;background-image:url(images/banner.jpg);background-position-x: -100px">
                         <div v-for="(value,item) in medicine[name]">
-                            <p style="color:#fff;width:260px" class="label-info">{{typeList[item]}}:</p>
+                            <p style="color:#fff;" :style="{width:100+value.length*14+'px'}" class="label-info">{{typeList[item]}}:</p>
                             <p style="padding-left: 50px">{{value}}</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
     </div>
+
+
+
 </div>
 
 <script>
@@ -96,15 +103,24 @@ let app =new Vue({
         current1:99,
         name:"",
         name1:"",
+        message:"",
+        marginStyle:0,
         typeList:{"alias":"别名","efficiency":"功效","actOn":"应用","property":"性味","channelTropism":"归经","dosage":"用量","remind":"使用注意"}
     },
     methods:{
         change:function(index){
-            this.current=index;
+            this.current = index;
 
         },
-        change1:function(index){
-            this.current1=index;
+        change1:function(index,value){
+            let tmp = this.current+index+2;
+            this.current1 = index;
+
+            if(classify[value].length<tmp){
+                tmp = classify[value].length;
+            }
+            this.marginStyle = (0-tmp)*40;
+            console.log(this.marginStyle);
 
         },
         display:function(value,value1,value2){
@@ -112,6 +128,31 @@ let app =new Vue({
             this.name = value;
             this.current1 = -1;
         },
+
+        search:function(){
+            let c2="";
+            for(x in classify){
+                  for (y in classify[x]){
+                    if(this.message == classify[x][y]) {
+                        c2 = x;
+                         break;
+                    }
+                }
+            }
+            if(c2 !=""){
+                for(x in bigClass){
+                    for (y in bigClass[x]){
+                        if(c2 == bigClass[x][y]) {
+                            this.name1 = x+"———"+c2+"———"+this.message;
+                            this.name = this.message;
+                             break;
+                        }
+                    }
+                }
+            }
+
+
+        }
 
     }
 })
